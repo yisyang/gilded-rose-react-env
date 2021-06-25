@@ -4,14 +4,19 @@ import {
 } from 'react-bootstrap';
 import { bindActionCreators, Dispatch } from 'redux';
 import { connect, ConnectedProps } from 'react-redux';
-import { ShopItem, MainShopState } from '../../../types';
+import { MainShopState } from '../../../types';
 import ShopItemTable from './ShopItemTable';
 import { updateItemsQuality } from '../../../actions/index';
 import '../../../App.css';
 import WelcomeMessage from './WelcomeMessage';
 
-const mapStateToProps = (state: {mainShop: MainShopState}) => ({
-  items: state.mainShop.items,
+type PartialState = {
+  mainShop: MainShopState,
+};
+
+const mapStateToProps = (state: PartialState) => ({
+  itemsForSale: state.mainShop.itemsForSale,
+  itemsWithDiscount: state.mainShop.itemsWithDiscount,
 });
 
 const matchDispatchToProps = (dispatch: Dispatch) => bindActionCreators({
@@ -24,7 +29,9 @@ const connector = connect(mapStateToProps, matchDispatchToProps);
 type PropsInferred = ConnectedProps<typeof connector>;
 
 const MainShop = (props: PropsInferred) => {
-  const { items } = props;
+  const { itemsForSale, itemsWithDiscount } = props;
+  const tabTitleForSale = `On Sale (${itemsForSale.length})`;
+  const tabTitleWithDiscount = `Discount (${itemsWithDiscount.length})`;
   return (
     <div className="App">
       <Container>
@@ -43,13 +50,15 @@ const MainShop = (props: PropsInferred) => {
         <Row>
           <Col>
             <Tabs defaultActiveKey="sale" id="uncontrolled-tab-example">
-              <Tab eventKey="sale" title="On Sale">
+              <Tab eventKey="sale" title={tabTitleForSale}>
                 <Card>
-                  <ShopItemTable items={items} />
+                  <ShopItemTable items={itemsForSale} />
                 </Card>
               </Tab>
-              <Tab eventKey="discount" title="Discount">
-                Coming soon...
+              <Tab eventKey="discount" title={tabTitleWithDiscount}>
+                <Card>
+                  <ShopItemTable items={itemsWithDiscount} />
+                </Card>
               </Tab>
             </Tabs>
             <Button onClick={() => props.updateItemsQuality()}>Update Quality</Button>
