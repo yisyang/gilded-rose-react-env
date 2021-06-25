@@ -30,6 +30,8 @@ type PropsInferred = ConnectedProps<typeof connector>;
 
 const MainShop = (props: PropsInferred) => {
   const { itemsForSale, itemsWithDiscount } = props;
+  const tabTitleForSale = `On Sale (${itemsForSale.length})`;
+  const tabTitleWithDiscount = `Discount (${itemsWithDiscount.length})`;
   return (
     <div className="App">
       <Container>
@@ -48,12 +50,12 @@ const MainShop = (props: PropsInferred) => {
         <Row>
           <Col>
             <Tabs defaultActiveKey="sale" id="uncontrolled-tab-example">
-              <Tab eventKey="sale" title="On Sale">
+              <Tab eventKey="sale" title={tabTitleForSale}>
                 <Card>
                   <ShopItemTable items={itemsForSale} />
                 </Card>
               </Tab>
-              <Tab eventKey="discount" title="Discount">
+              <Tab eventKey="discount" title={tabTitleWithDiscount}>
                 <Card>
                   <ShopItemTable items={itemsWithDiscount} />
                 </Card>
