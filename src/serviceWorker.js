@@ -24,6 +24,10 @@ function registerValidSW(swUrl, config) {
   navigator.serviceWorker
     .register(swUrl)
     .then((registration) => {
+      // TODO: Refactor sw code
+      // See https://jakearchibald.github.io/isserviceworkerready/resources.html
+      //     https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API/Using_Service_Workers
+      // eslint-disable-next-line no-param-reassign
       registration.onupdatefound = () => {
         const installingWorker = registration.installing;
         if (installingWorker == null) {
@@ -95,7 +99,7 @@ function checkValidServiceWorker(swUrl, config) {
 }
 
 export function register(config) {
-  if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
+  if (process.env.NODE_ENV === 'production' && typeof (navigator.serviceWorker) === 'object') {
     // The URL constructor is available in all browsers that support SW.
     const publicUrl = new URL(process.env.PUBLIC_URL, window.location.href);
     if (publicUrl.origin !== window.location.origin) {
@@ -129,7 +133,7 @@ export function register(config) {
 }
 
 export function unregister() {
-  if ('serviceWorker' in navigator) {
+  if (typeof (navigator.serviceWorker) === 'object') {
     navigator.serviceWorker.ready
       .then((registration) => {
         registration.unregister();

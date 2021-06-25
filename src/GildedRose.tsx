@@ -3,8 +3,8 @@ import {
   Button, Container, Row, Col, Navbar, Tab, Tabs, Card,
 } from 'react-bootstrap';
 import ShopItemTable, { Item } from './components/ShopItemTable';
-import shopItems from './data/shopItems';
-import { Shop } from './api/gilded_rose';
+import shopItemsData from './data/shopItems';
+import Shop from './api/shop';
 import './App.css';
 import WelcomeMessage from './components/WelcomeMessage';
 
@@ -14,24 +14,17 @@ interface State {
   items: Item[]
 }
 
-const shop = new Shop(shopItems);
+const shop = new Shop(shopItemsData);
 
 class GildedRose extends React.Component<Props, State> {
-  constructor(props: Props) {
-    super(props);
-    this.state = {
-      items: shop.items,
-    };
-    console.log('Initial Shop state: ', this.state.items);
+  static updateShowQuality() {
+    shop.updateQuality();
+    console.log('Shop state after update:', shop);
   }
 
-  updateShowQuality() {
-    shop.updateQuality();
-    console.log('Shop State after update:', shop);
-
-    this.setState({
-      items: shop.items,
-    });
+  constructor(props: Props) {
+    super(props);
+    console.log('Initial shop state: ', shop);
   }
 
   render() {
@@ -55,14 +48,14 @@ class GildedRose extends React.Component<Props, State> {
               <Tabs defaultActiveKey="sale" id="uncontrolled-tab-example">
                 <Tab eventKey="sale" title="On Sale">
                   <Card>
-                    <ShopItemTable items={this.state.items} />
+                    <ShopItemTable items={shop.items} />
                   </Card>
                 </Tab>
                 <Tab eventKey="discount" title="Discount">
                   Coming soon...
                 </Tab>
               </Tabs>
-              <Button onClick={this.updateShowQuality.bind(this)}>Update Quality</Button>
+              <Button onClick={GildedRose.updateShowQuality}>Update Quality</Button>
             </Col>
           </Row>
         </Container>
