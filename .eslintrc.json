@@ -1,0 +1,44 @@
+{
+    "env": {
+        "browser": true,
+        "es2020": true,
+        "jest": true
+    },
+    "settings": {
+      "import/resolver": {
+        "node": {
+          "extensions": [".js", ".jsx", ".ts", ".tsx"]
+        }
+      },
+      "react": {
+        "version": "detect"
+      }
+    },
+    "extends": [
+      "airbnb-typescript"
+    ],
+    "parserOptions": {
+      "project": "./tsconfig.json"
+    },
+    "rules": {
+      "import/extensions": ["off"],
+      "max-len": [
+        "warn",
+        {
+          "code": 120,
+          "ignoreComments": true,
+          "ignoreUrls": true
+        }
+      ],
+      "no-console": ["off"],
+      "no-mixed-operators": ["off"],
+      "no-plusplus": [
+        "warn",
+        {
+          "allowForLoopAfterthoughts": true
+        }
+      ],
+      "no-restricted-syntax": ["warn", "WithStatement", "BinaryExpression[operator='in']"],
+      "react/jsx-filename-extension": ["off", { "extensions": [".tsx"] }]
+    }
+}
