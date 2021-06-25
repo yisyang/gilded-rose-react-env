@@ -6,5 +6,6 @@ export type ShopItem = {
 };
 
 export type MainShopState = {
-  items: ShopItem[]
-}
+  itemsForSale: ShopItem[],
+  itemsWithDiscount: ShopItem[]
+};
