@@ -2,16 +2,17 @@ import React from 'react';
 import {
   Button, Container, Row, Col, Navbar, Tab, Tabs, Card,
 } from 'react-bootstrap';
-import ShopItemTable, { Item } from './components/ShopItemTable';
-import shopItemsData from './data/shopItems';
-import Shop from './api/shop';
-import './App.css';
-import WelcomeMessage from './components/WelcomeMessage';
+import shopItemsData from '../../../data/shopItems';
+import Shop from '../../../api/shop';
+import { ShopItem } from '../../../types';
+import ShopItemTable from './ShopItemTable';
+import '../../../App.css';
+import WelcomeMessage from './WelcomeMessage';
 
 interface Props {}
 
 interface State {
-  items: Item[]
+  items: ShopItem[]
 }
 
 const shop = new Shop(shopItemsData);

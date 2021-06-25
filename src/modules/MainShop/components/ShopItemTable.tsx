@@ -1,21 +1,14 @@
 import React from 'react';
-import Table from 'react-bootstrap/Table';
-import { map } from 'lodash';
+import { Table } from 'react-bootstrap';
+import { ShopItem } from '../../../types';
 
-export interface Item {
-  sku: string;
-  name: string;
-  sellIn?: number;
-  quality?: number;
-}
+type ShopItemTableProps = {
+  items: ShopItem[]
+};
 
-interface ShopItemTableProps {
-  items: Item[]
-}
-
-function getItemRows(items: Item[]) {
-  return map(items, (item: Item) => (
-    <tr key="{item.sku}" className="item-row">
+function getItemRows(items: ShopItem[]) {
+  return items.map((item: ShopItem) => (
+    <tr key={item.sku} className="item-row">
       <td>{item.name}</td>
       <td>{item.quality || 0}</td>
       <td>{item.sellIn || 0}</td>
@@ -25,6 +18,14 @@ function getItemRows(items: Item[]) {
 
 function ShopItemTable(props: ShopItemTableProps) {
   const { items } = props;
+
+  if (items.length === 0) {
+    return (
+      <div>
+        No items found. Please check other sections.
+      </div>
+    );
+  }
 
   return (
     <Table striped bordered hover>
