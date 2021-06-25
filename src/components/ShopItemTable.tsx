@@ -3,9 +3,10 @@ import Table from 'react-bootstrap/Table';
 import { map } from 'lodash';
 
 export interface Item {
+  sku: string;
   name: string;
-  sellIn: number;
-  quality: number;
+  sellIn?: number;
+  quality?: number;
 }
 
 interface ShopItemTableProps {
@@ -14,10 +15,10 @@ interface ShopItemTableProps {
 
 function getItemRows(items: Item[]) {
   return map(items, (item: Item) => (
-    <tr className="item-row">
+    <tr key="{item.sku}" className="item-row">
       <td>{item.name}</td>
-      <td>{item.quality}</td>
-      <td>{item.sellIn}</td>
+      <td>{item.quality || 0}</td>
+      <td>{item.sellIn || 0}</td>
     </tr>
   ));
 }
