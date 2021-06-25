@@ -4,3 +4,7 @@ export type ShopItem = {
   sellIn: number;
   quality: number;
 };
+
+export type MainShopState = {
+  items: ShopItem[]
+}
