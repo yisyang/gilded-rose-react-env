@@ -6,6 +6,7 @@ describe('ShopItemTable', () => {
   it('renders learn react link', () => {
     const items = [
       {
+        sku: 'F1',
         name: 'Foo',
       },
     ];
