@@ -1,6 +1,6 @@
 export type ShopItem = {
   sku: string;
   name: string;
-  sellIn?: number;
-  quality?: number;
+  sellIn: number;
+  quality: number;
 };
