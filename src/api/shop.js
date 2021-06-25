@@ -1,6 +1,19 @@
 export default class Shop {
+  static formatItemsData(items) {
+    return items.map((item) => ({
+      sku: item.sku,
+      name: item.name,
+      quality: item.quality || 0,
+      sellIn: item.sellIn || 0,
+    }));
+  }
+
   constructor(items = []) {
-    this.items = items;
+    this.items = Shop.formatItemsData(items);
+  }
+
+  getItems() {
+    return this.items;
   }
 
   updateQuality() {
@@ -46,6 +59,6 @@ export default class Shop {
       }
     }
 
-    return this.items;
+    return this.getItems();
   }
 }
